@@ -15,11 +15,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             abv.vm.provision "shell" do |s|
                 s.inline = "pacman -Syu"
                 s.inline = "pacman -S zsh zsh-completions git curl wget"
-                s.inline = "curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | ZSH=~/.dotfiles/zsh sh"
-                s.inline = "mkdir ~/.git"
-                s.inline = "cd ~/.git && git clone git clone https://github.com/hackinginformation/dotfiles.git"
-                s.inline = "cp ~/.git/dotfiles/vim/.vimrc ~/.vimrc"
-                s.inline = "cp ~/.git/dotfiles/zsh/.zshrc ~/.zshrc"
+                s.inline = "curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | ZSH=/home/vagrant/.dotfiles/zsh sh"
+               s.inline = "mkdir /home/vagrant/.git && cd /home/vagrant/.git"
+                s.inline = "git clone git clone https://github.com/hackinginformation/dotfiles.git && cd dotfiles"
+                s.inline = "cp vim/.vimrc /home/vagrant/.vimrc"
+                s.inline = "cp zsh/.zshrc /home/vagrant/.zshrc"
             end
         end
 	end
