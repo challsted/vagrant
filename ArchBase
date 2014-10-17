@@ -1,0 +1,26 @@
+# Don't change this.. Default Vagrant configuration to define API version.
+VAGRANTFILE_API_VERSION = "2"
+# Define how many instances of the VM you want to start.
+$num_instances = 1
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    (1..$num_instances).each do |i|
+        # Name the virtual machine started with VirtualBox "trusty64-#n"..
+        config.vm.define "archbase-#{i}" do |abv|
+            # Provision an ArchLinux 64-bit from the Vagrant Cloud Repo (https://vagrantcloud.com/jonathanpa/boxes/arch-ready)
+            abv.vm.box = "jonathanpa/arch-ready"
+            # Echo post up message after "vagrant up" is completed
+            abv.vm.post_up_message = "Vagrantfile built by HackingInformation (https://github.com/hackinginformation/vagrant/)"
+            # Uncomment the below line to install Dockere
+            abv.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+            abv.vm.provision "shell" do |s|
+                s.inline = "pacman -Syu"
+                s.inline = "pacman -S zsh zsh-completions git curl wget"
+                s.inline = "curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | ZSH=~/.dotfiles/zsh sh"
+                s.inline = "mkdir ~/.git"
+                s.inline = "cd ~/.git && git clone git clone https://github.com/hackinginformation/dotfiles.git"
+                s.inline = "cp ~/.git/dotfiles/vim/.vimrc ~/.vimrc"
+                s.inline = "cp ~/.git/dotfiles/zsh/.zshrc ~/.zshrc"
+            end
+        end
+	end
+end
