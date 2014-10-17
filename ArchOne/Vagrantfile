@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Name the virtual machine started with VirtualBox "trusty64-#n"..
         config.vm.define "archbase-#{i}" do |abv|
             # Provision an ArchLinux 64-bit from the Vagrant Cloud Repo (https://vagrantcloud.com/jonathanpa/boxes/arch-ready)
-            abv.vm.box = "jonathanpa/arch-ready"
+            abv.vm.box = "terrywang/archlinux"
             # Echo post up message after "vagrant up" is completed
             abv.vm.post_up_message = "Vagrantfile built by HackingInformation (https://github.com/hackinginformation/vagrant/)"
             # Uncomment the below line to install Dockere
